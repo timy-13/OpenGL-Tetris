@@ -135,9 +135,17 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\objects\sprite.cpp" />
+    <ClCompile Include="src\shaders\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\objects\sprite.h" />
+    <ClInclude Include="src\shaders\shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\tetris.fs" />
+    <None Include="src\shaders\tetris.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
