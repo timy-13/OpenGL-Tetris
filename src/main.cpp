@@ -1,5 +1,9 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+// #include <glad/glad.h>
+// #include <GLFW/glfw3.h>
+
+#include "shared.h"
+
+#include "game.h"
 
 #include <iostream>
 
@@ -7,8 +11,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 // Screen settings
-const unsigned int SCR_WIDTH = 900;
-const unsigned int SCR_HEIGHT = 700;
+// const unsigned int SCR_WIDTH = 900;
+//  unsigned int SCR_HEIGHT = 700;
+
+Game Tetris(SCR_WIDTH, SCR_HEIGHT);
+
 
 int main()
 {
@@ -44,11 +51,15 @@ int main()
         return -1;
     }
 
+    Tetris.Init();
+
+
     // deltaTime variables
     // -------------------
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
     float moveTime = 0.0f;
+    float moveInterval = 0.3f;
 
     // render loop
     // -----------
@@ -64,10 +75,16 @@ int main()
         glfwPollEvents();
 
 
+        Tetris.ProcessInput(deltaTime);
+
+        Tetris.Update(deltaTime);
+
         // render
         // ------
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        Tetris.Render();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -87,6 +104,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (key >= 0 && key < 1024)
+    {
+        if (action == GLFW_PRESS)
+            Tetris.Keys[key] = true;
+        else if (action == GLFW_RELEASE)
+            Tetris.Keys[key] = false;
+    }
 }
 
 // glfw: when window size is changed by OS or user

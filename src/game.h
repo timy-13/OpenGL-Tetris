@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "shared.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "objects/piece.h"
 
 enum GameState {
     GAME_ACTIVE,
