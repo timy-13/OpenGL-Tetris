@@ -9,13 +9,31 @@ Sprite* sprite;
 Block* block;
 Piece* piece;
 
-T Square[5][5] = {
-    {T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
-    {T(0, glm::vec2(0.0, 30.0)), T(0, glm::vec2(30.0, 30.0)), T(0, glm::vec2(60.0, 30.0)), T(0, glm::vec2(90.0, 30.0)), T(0, glm::vec2(120.0, 30.0))},
-    {T(0, glm::vec2(0.0, 60.0)), T(0, glm::vec2(30.0, 60.0)), T(1, glm::vec2(60.0, 60.0)), T(1, glm::vec2(90.0, 60.0)), T(0, glm::vec2(120.0, 60.0))},
-    {T(0, glm::vec2(0.0, 90.0)), T(0, glm::vec2(30.0, 90.0)), T(1, glm::vec2(60.0, 90.0)), T(1, glm::vec2(90.0, 90.0)), T(0, glm::vec2(120.0, 90.0))},
-    {T(0, glm::vec2(0.0, 120.0)), T(0, glm::vec2(30.0, 120.0)), T(0, glm::vec2(60.0, 120.0)), T(0, glm::vec2(90.0, 120.0)), T(0, glm::vec2(120.0, 120.0))}
+//T Square[5][5] = {
+//        {T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
+//        {T(0, glm::vec2(0.0, 30.0)), T(0, glm::vec2(30.0, 30.0)), T(0, glm::vec2(60.0, 30.0)), T(0, glm::vec2(90.0, 30.0)), T(0, glm::vec2(120.0, 30.0))},
+//        {T(0, glm::vec2(0.0, 60.0)), T(0, glm::vec2(30.0, 60.0)), T(1, glm::vec2(60.0, 60.0)), T(1, glm::vec2(90.0, 60.0)), T(0, glm::vec2(120.0, 60.0))},
+//        {T(0, glm::vec2(0.0, 90.0)), T(0, glm::vec2(30.0, 90.0)), T(1, glm::vec2(60.0, 90.0)), T(1, glm::vec2(90.0, 90.0)), T(0, glm::vec2(120.0, 90.0))},
+//        {T(0, glm::vec2(0.0, 120.0)), T(0, glm::vec2(30.0, 120.0)), T(0, glm::vec2(60.0, 120.0)), T(0, glm::vec2(90.0, 120.0)), T(0, glm::vec2(120.0, 120.0))}
+//};
+//
+//T L[5][5] = {
+//        {T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
+//        {T(0, glm::vec2(0.0, 30.0)), T(0, glm::vec2(30.0, 30.0)), T(1, glm::vec2(60.0, 30.0)), T(0, glm::vec2(90.0, 30.0)), T(0, glm::vec2(120.0, 30.0))},
+//        {T(0, glm::vec2(0.0, 60.0)), T(0, glm::vec2(30.0, 60.0)), T(1, glm::vec2(60.0, 60.0)), T(0, glm::vec2(90.0, 60.0)), T(0, glm::vec2(120.0, 60.0))},
+//        {T(0, glm::vec2(0.0, 90.0)), T(0, glm::vec2(30.0, 90.0)), T(1, glm::vec2(60.0, 90.0)), T(1, glm::vec2(90.0, 90.0)), T(0, glm::vec2(120.0, 90.0))},
+//        {T(0, glm::vec2(0.0, 120.0)), T(0, glm::vec2(30.0, 120.0)), T(0, glm::vec2(60.0, 120.0)), T(0, glm::vec2(90.0, 120.0)), T(0, glm::vec2(120.0, 120.0))}
+//};
+
+// initial posMatrix
+glm::vec2 posMatrix[5][5] = {
+        {glm::vec2(0.0, 0.0), glm::vec2(30.0, 0.0), glm::vec2(60.0, 0.0), glm::vec2(90.0, 0.0), glm::vec2(120.0, 0.0)},
+        {glm::vec2(0.0, 30.0), glm::vec2(30.0, 30.0), glm::vec2(60.0, 30.0), glm::vec2(90.0, 30.0), glm::vec2(120.0, 30.0)},
+        {glm::vec2(0.0, 60.0), glm::vec2(30.0, 60.0), glm::vec2(60.0, 60.0), glm::vec2(90.0, 60.0), glm::vec2(120.0, 60.0)},
+        {glm::vec2(0.0, 90.0), glm::vec2(30.0, 90.0), glm::vec2(60.0, 90.0), glm::vec2(90.0, 90.0), glm::vec2(120.0, 90.0)},
+        {glm::vec2(0.0, 120.0), glm::vec2(30.0, 120.0), glm::vec2(60.0, 120.0), glm::vec2(90.0, 120.0), glm::vec2(120.0, 120.0)}
 };
+
 
 Game::Game(unsigned int width, unsigned int height)
     : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -41,7 +59,7 @@ void Game::Init() {
 
     block = new Block(glm::vec2(60.0f, 210.0f), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), glm::vec3(0.0f, 0.0f, 1.0f));
 
-    piece = new Piece(Square, glm::vec3(1.0f, 0.0f, 0.0f));
+    piece = new Piece(posMatrix, glm::vec3(1.0f, 0.0f, 0.0f));
 
 }
 
@@ -87,7 +105,7 @@ void Game::ProcessInput(float dt) {
 void Game::Render() {
     if (this->State == GAME_ACTIVE) {
         block->drawBlock(*sprite);
-        piece->drawPiece(Square, *sprite, glm::vec3(1.0, 0.0, 0.0));
+        piece->drawPiece(piece->posMatrix, 0, 0, *sprite, glm::vec3(1.0, 0.0, 0.0));
     }
 }
 

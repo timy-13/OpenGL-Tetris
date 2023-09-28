@@ -8,24 +8,24 @@
 #include <utility>
 
 // matrix for positions of blocks
-typedef std::pair<int, glm::vec2> T;
+//typedef std::pair<int, glm::vec2> T;
 
 class Piece {
 public:
 
 	glm::vec2 centerPos;
-	T blockMatrix[5][5];
+	glm::vec2 posMatrix[5][5];
 	glm::vec3 color;
 
 	bool left;
 	bool right;
-	bool rotate;
+	int rotate;
 
 	Piece();
-	Piece(T blockMatrix[5][5], glm::vec3 color);
+	Piece(glm::vec2 posMatrix[5][5], glm::vec3 color);
 	~Piece();
 
-	void drawPiece(T blockMatrix[5][5], Sprite &sprite, glm::vec3 color);
+	void drawPiece(glm::vec2 posMatrix[5][5], int type, int rotation, Sprite &sprite, glm::vec3 color);
 
 	void moveLeft();
 
@@ -33,7 +33,27 @@ public:
 
 	void moveDown();
 
-	T getPiece(std::string pieceName, int rotation);
+	void rotatePiece();
+
+	// int** getPiece(int type, int rotation);
+
+	// pieces
+	/*T Square[5][5] = {
+		{T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
+		{T(0, glm::vec2(0.0, 30.0)), T(0, glm::vec2(30.0, 30.0)), T(0, glm::vec2(60.0, 30.0)), T(0, glm::vec2(90.0, 30.0)), T(0, glm::vec2(120.0, 30.0))},
+		{T(0, glm::vec2(0.0, 60.0)), T(0, glm::vec2(30.0, 60.0)), T(1, glm::vec2(60.0, 60.0)), T(1, glm::vec2(90.0, 60.0)), T(0, glm::vec2(120.0, 60.0))},
+		{T(0, glm::vec2(0.0, 90.0)), T(0, glm::vec2(30.0, 90.0)), T(1, glm::vec2(60.0, 90.0)), T(1, glm::vec2(90.0, 90.0)), T(0, glm::vec2(120.0, 90.0))},
+		{T(0, glm::vec2(0.0, 120.0)), T(0, glm::vec2(30.0, 120.0)), T(0, glm::vec2(60.0, 120.0)), T(0, glm::vec2(90.0, 120.0)), T(0, glm::vec2(120.0, 120.0))}
+	};
+
+	T L[5][5] = {
+		{T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
+		{T(0, glm::vec2(0.0, 30.0)), T(0, glm::vec2(30.0, 30.0)), T(1, glm::vec2(60.0, 30.0)), T(0, glm::vec2(90.0, 30.0)), T(0, glm::vec2(120.0, 30.0))},
+		{T(0, glm::vec2(0.0, 60.0)), T(0, glm::vec2(30.0, 60.0)), T(1, glm::vec2(60.0, 60.0)), T(0, glm::vec2(90.0, 60.0)), T(0, glm::vec2(120.0, 60.0))},
+		{T(0, glm::vec2(0.0, 90.0)), T(0, glm::vec2(30.0, 90.0)), T(1, glm::vec2(60.0, 90.0)), T(1, glm::vec2(90.0, 90.0)), T(0, glm::vec2(120.0, 90.0))},
+		{T(0, glm::vec2(0.0, 120.0)), T(0, glm::vec2(30.0, 120.0)), T(0, glm::vec2(60.0, 120.0)), T(0, glm::vec2(90.0, 120.0)), T(0, glm::vec2(120.0, 120.0))}
+	};*/
+
 };
 
 
