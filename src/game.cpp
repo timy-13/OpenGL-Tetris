@@ -89,13 +89,13 @@ void Game::ProcessInput(float dt) {
         }
 
         // rotation
-        if (piece->rotate == false && this->Keys[GLFW_KEY_UP]) {
-            
-            piece->rotate = true;
+        if (piece->rotated == false && this->Keys[GLFW_KEY_UP]) {
+            piece->rotatePiece();
+            piece->rotated = true;
         }
 
         if (!(this->Keys[GLFW_KEY_UP])) {
-            piece->rotate = false;
+            piece->rotated = false;
         }
         
 
@@ -105,7 +105,7 @@ void Game::ProcessInput(float dt) {
 void Game::Render() {
     if (this->State == GAME_ACTIVE) {
         block->drawBlock(*sprite);
-        piece->drawPiece(piece->posMatrix, 0, 0, *sprite, glm::vec3(1.0, 0.0, 0.0));
+        piece->drawPiece(piece->posMatrix, 0, *sprite, glm::vec3(1.0, 0.0, 0.0));
     }
 }
 

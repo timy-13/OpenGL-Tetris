@@ -19,13 +19,14 @@ public:
 
 	bool left;
 	bool right;
-	int rotate;
+	bool rotated;
+	int rotation;
 
 	Piece();
 	Piece(glm::vec2 posMatrix[5][5], glm::vec3 color);
 	~Piece();
 
-	void drawPiece(glm::vec2 posMatrix[5][5], int type, int rotation, Sprite &sprite, glm::vec3 color);
+	void drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite &sprite, glm::vec3 color);
 
 	void moveLeft();
 

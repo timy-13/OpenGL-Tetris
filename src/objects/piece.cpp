@@ -1,36 +1,14 @@
 #include "piece.h"
 
-int pieceMatrices[1][4][5][5] = {
+// [type][x][y]
+int pieceMatrices[1][5][5] = {
 	// L
 	{
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 1, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 1, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		}
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0}
 	}
 };
 
@@ -49,7 +27,7 @@ Piece::Piece(glm::vec2 posMatrix[5][5], glm::vec3 color) : color(color) {
 	this->centerPos = posMatrix[2][2];
 	this->left = false;
 	this->right = false;
-	this->rotate = 1;
+	this->rotation = 0;
 
 }
 
@@ -57,7 +35,7 @@ Piece::~Piece() {
 
 }
 
-void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, int rotation, Sprite& sprite, glm::vec3 color) {
+void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::vec3 color) {
 	// this->blockMatrix[5][5] = blockMatrix[5][5];
 
 	// int** blockMatrix[5][5] = getPiece(type, rotation);
@@ -66,7 +44,7 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, int rotation, Sprite&
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			if (pieceMatrices[type][rotation][i][j] == 1) {
+			if (pieceMatrices[type][i][j] == 1) {
 				sprite.drawSprite(this->posMatrix[i][j], glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.0f, color);
 			}
 		}
@@ -103,13 +81,16 @@ void Piece::moveDown() {
 }
 
 void Piece::rotatePiece() {
+	for (int j = 0; j < 2; j++) {
+		for (int i = j; i < 4 - j; i++) {
+			glm::vec2 temp = this->posMatrix[i][j];
+			this->posMatrix[i][j] = this->posMatrix[4 - j][i];
+			this->posMatrix[4 - j][i] = this->posMatrix[4 - i][4 - j];
+			this->posMatrix[4 - i][4 - j] = this->posMatrix[j][4 - i];
+			this->posMatrix[j][4 - i] = temp;
+
+		}
+	}
 
 }
-
-//int** Piece::getPiece(int type, int rotation) {
-//	return pieceMatrices [type][rotation][5][5];
-//}
-
-
-// [type][rotation][x][y]
 
