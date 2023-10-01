@@ -136,6 +136,7 @@
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\objects\block.cpp" />
+    <ClCompile Include="src\objects\board.cpp" />
     <ClCompile Include="src\objects\piece.cpp" />
     <ClCompile Include="src\objects\sprite.cpp" />
     <ClCompile Include="src\shaders\shader.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="src\game.h" />
     <ClInclude Include="src\objects\block.h" />
+    <ClInclude Include="src\objects\board.h" />
     <ClInclude Include="src\objects\piece.h" />
     <ClInclude Include="src\objects\sprite.h" />
     <ClInclude Include="src\shaders\shader.h" />

@@ -21,6 +21,7 @@ public:
 	bool right;
 	bool rotated;
 	int rotation;
+	int type;
 
 	Piece();
 	Piece(glm::vec2 posMatrix[5][5], glm::vec3 color);
@@ -59,7 +60,3 @@ public:
 
 
 #endif
-
-
-
-

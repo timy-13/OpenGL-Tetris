@@ -40,8 +40,6 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::
 
 	// int** blockMatrix[5][5] = getPiece(type, rotation);
 
-	
-
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
 			if (pieceMatrices[type][i][j] == 1) {
@@ -51,6 +49,7 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::
 	}
 
 	this->centerPos = posMatrix[2][2];
+	this->type = type;
 }
 
 void Piece::moveLeft() {
@@ -90,6 +89,13 @@ void Piece::rotatePiece() {
 			this->posMatrix[j][4 - i] = temp;
 
 		}
+	}
+
+	if (this->rotation == 4) {
+		this->rotation = 1;
+	}
+	else {
+		this->rotation++;
 	}
 
 }
