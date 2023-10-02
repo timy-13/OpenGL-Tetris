@@ -59,7 +59,7 @@ int main()
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
     float moveTime = 0.0f;
-    float moveInterval = 0.3f;
+    float moveInterval = 0.6f;
 
     // render loop
     // -----------
@@ -77,7 +77,12 @@ int main()
 
         Tetris.ProcessInput(deltaTime);
 
-        Tetris.Update(deltaTime);
+
+        if (moveTime >= moveInterval) {
+            Tetris.Update(deltaTime);
+            moveTime = 0.0f;
+        }
+        
 
         // render
         // ------

@@ -4,10 +4,12 @@
 #include "objects/sprite.h"
 #include "objects/block.h"
 #include "objects/piece.h"
+#include "objects/board.h"
 
 Sprite* sprite;
-Block* block;
+// Block* block;
 Piece* piece;
+Board* board;
 
 //T Square[5][5] = {
 //        {T(0, glm::vec2(0.0, 0.0)), T(0, glm::vec2(30.0, 0.0)), T(0, glm::vec2(60.0, 0.0)), T(0, glm::vec2(90.0, 0.0)), T(0, glm::vec2(120.0, 0.0))},
@@ -34,6 +36,9 @@ glm::vec2 posMatrix[5][5] = {
         {glm::vec2(0.0, 120.0), glm::vec2(30.0, 120.0), glm::vec2(60.0, 120.0), glm::vec2(90.0, 120.0), glm::vec2(120.0, 120.0)}
 };
 
+glm::vec3 pieceColors[7] = {
+    glm::vec3()
+};
 
 Game::Game(unsigned int width, unsigned int height)
     : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
@@ -44,7 +49,7 @@ Game::Game(unsigned int width, unsigned int height)
 Game::~Game()
 {
     delete sprite;
-    delete block;
+    // delete block;
     delete piece;
 }
 
@@ -57,27 +62,47 @@ void Game::Init() {
     shader.SetMatrix4("projection", projection);
     sprite = new Sprite(shader);
 
-    block = new Block(glm::vec2(60.0f, 210.0f), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), glm::vec3(0.0f, 0.0f, 1.0f));
+    // block = new Block(glm::vec2(60.0f, 210.0f), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), glm::vec3(0.0f, 0.0f, 1.0f));
 
     piece = new Piece(posMatrix, glm::vec3(1.0f, 0.0f, 0.0f));
+
+    board = new Board();
 
 }
 
 void Game::Update(float dt) {
+    int x = (static_cast<int>(piece->firstPos.x)) / 30;
+    int y = (static_cast<int>(piece->firstPos.y)) / 30;
+
+    std::cout << x << y << std::endl;
+
+    if (board->isMove(x, y + 1, piece->type, piece->rotation) == true) { // can piece move down
+        piece->moveDown();
+    }
+    /*else {
+        board->fillPiece(x, y, piece->type, piece->rotation, *sprite, piece->color);
+        board->deleteLines();
+        respawnPiece();
+    }*/
     
+
 }
 
 
 void Game::ProcessInput(float dt) {
     if (this->State == GAME_ACTIVE) {
+        int x = (piece->firstPos.x) / 30;
+        int y = (piece->firstPos.y) / 30;
+        int type = piece->type;
+        int rotation = piece->rotation;
 
         // horizontal movement
-        if (piece->left == false && this->Keys[GLFW_KEY_LEFT]) {
+        if (piece->left == false && this->Keys[GLFW_KEY_LEFT] && board->isMove(x - 1, y, type, rotation)) {
             piece->moveLeft();
             piece->left = true;
             piece->right = false;
         }
-        if (piece->right == false && this->Keys[GLFW_KEY_RIGHT]) {
+        if (piece->right == false && this->Keys[GLFW_KEY_RIGHT] && board->isMove(x + 1, y, type, rotation)) {
             piece->moveRight();
             piece->right = true;
             piece->left = false;
@@ -104,11 +129,18 @@ void Game::ProcessInput(float dt) {
 
 void Game::Render() {
     if (this->State == GAME_ACTIVE) {
-        block->drawBlock(*sprite);
+        // block->drawBlock(*sprite);
         piece->drawPiece(piece->posMatrix, 0, *sprite, glm::vec3(1.0, 0.0, 0.0));
     }
 }
 
 void Game::Reset() {
 
+}
+
+
+void Game::respawnPiece() {
+    int randType = (rand() % 7);
+
+    piece->drawPiece(piece->posMatrix, randType, *sprite, pieceColors[randType]);
 }

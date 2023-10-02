@@ -8,8 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define SCR_WIDTH 900
-#define SCR_HEIGHT 700
+#define SCR_WIDTH 300
+#define SCR_HEIGHT 600
 
 #define BLOCK_SIZE 30
 

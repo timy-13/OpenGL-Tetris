@@ -29,6 +29,8 @@ public:
     void Update(float dt);
     void Render();
     void Reset();
+
+    void respawnPiece();
 };
 
 #endif

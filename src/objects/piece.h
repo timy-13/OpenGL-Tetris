@@ -13,7 +13,7 @@
 class Piece {
 public:
 
-	glm::vec2 centerPos;
+	glm::vec2 firstPos;
 	glm::vec2 posMatrix[5][5];
 	glm::vec3 color;
 

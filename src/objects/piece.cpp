@@ -12,7 +12,6 @@ int pieceMatrices[1][5][5] = {
 	}
 };
 
-
 Piece::Piece() {
 
 }
@@ -24,10 +23,11 @@ Piece::Piece(glm::vec2 posMatrix[5][5], glm::vec3 color) : color(color) {
 		}
 	}
 
-	this->centerPos = posMatrix[2][2];
+	this->firstPos = posMatrix[0][0];
 	this->left = false;
 	this->right = false;
 	this->rotation = 0;
+	this->type = 0;
 
 }
 
@@ -48,7 +48,7 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::
 		}
 	}
 
-	this->centerPos = posMatrix[2][2];
+	this->firstPos = posMatrix[0][0];
 	this->type = type;
 }
 
@@ -74,9 +74,10 @@ void Piece::moveDown() {
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			this->posMatrix[i][j].y -= BLOCK_SIZE;
+			this->posMatrix[i][j].y += BLOCK_SIZE;
 		}
 	}
+	this->firstPos.y++;
 }
 
 void Piece::rotatePiece() {
@@ -99,4 +100,3 @@ void Piece::rotatePiece() {
 	}
 
 }
-
