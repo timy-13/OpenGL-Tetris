@@ -19,6 +19,8 @@ public:
 
 	void fillPiece(int x, int y, int type, int rotation, Sprite& sprite, glm::vec3 color);
 
+	void drawBoard(Sprite &sprite);
+
 	void deleteLines();
 
 };

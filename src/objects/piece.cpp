@@ -1,13 +1,68 @@
 #include "piece.h"
 
 // [type][x][y]
-int pieceMatrices[1][5][5] = {
+int pieceMatrices[7][5][5] = {
 	// L
 	{
 		{0, 0, 0, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 0, 1, 0, 0},
 		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// L mirror
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 1, 1, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// Square
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// T
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// N
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// N mirror
+
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 1, 0},
+		{0, 0, 0, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+
+	// Line
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0}
 	}
 };
@@ -20,6 +75,7 @@ Piece::Piece(glm::vec2 posMatrix[5][5], glm::vec3 color) : color(color) {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
 			this->posMatrix[i][j] = posMatrix[i][j];
+			this->blockMatrix[i][j] = pieceMatrices[0][i][j];
 		}
 	}
 
@@ -42,7 +98,7 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			if (pieceMatrices[type][i][j] == 1) {
+			if (this->blockMatrix[i][j] == 1) {
 				sprite.drawSprite(this->posMatrix[i][j], glm::vec2(BLOCK_SIZE, BLOCK_SIZE), 0.0f, color);
 			}
 		}
@@ -50,6 +106,7 @@ void Piece::drawPiece(glm::vec2 posMatrix[5][5], int type, Sprite& sprite, glm::
 
 	this->firstPos = posMatrix[0][0];
 	this->type = type;
+	this->color = color;
 }
 
 void Piece::moveLeft() {
@@ -92,11 +149,19 @@ void Piece::rotatePiece() {
 		}
 	}
 
-	if (this->rotation == 4) {
-		this->rotation = 1;
+	if (this->rotation == 3) {
+		this->rotation = 0;
 	}
 	else {
 		this->rotation++;
 	}
 
+}
+
+void Piece::getPiece(int type) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			this->blockMatrix[i][j] = pieceMatrices[type][i][j];
+		}
+	}
 }

@@ -7,7 +7,6 @@
 #include "objects/board.h"
 
 Sprite* sprite;
-// Block* block;
 Piece* piece;
 Board* board;
 
@@ -49,8 +48,8 @@ Game::Game(unsigned int width, unsigned int height)
 Game::~Game()
 {
     delete sprite;
-    // delete block;
     delete piece;
+    delete board;
 }
 
 void Game::Init() {
@@ -62,8 +61,6 @@ void Game::Init() {
     shader.SetMatrix4("projection", projection);
     sprite = new Sprite(shader);
 
-    // block = new Block(glm::vec2(60.0f, 210.0f), glm::vec2(BLOCK_SIZE, BLOCK_SIZE), glm::vec3(0.0f, 0.0f, 1.0f));
-
     piece = new Piece(posMatrix, glm::vec3(1.0f, 0.0f, 0.0f));
 
     board = new Board();
@@ -74,16 +71,14 @@ void Game::Update(float dt) {
     int x = (static_cast<int>(piece->firstPos.x)) / 30;
     int y = (static_cast<int>(piece->firstPos.y)) / 30;
 
-    std::cout << x << y << std::endl;
-
     if (board->isMove(x, y + 1, piece->type, piece->rotation) == true) { // can piece move down
         piece->moveDown();
     }
-    /*else {
-        board->fillPiece(x, y, piece->type, piece->rotation, *sprite, piece->color);
-        board->deleteLines();
+    else {
+        board->fillPiece(x, y, piece->type, piece->rotation, *sprite, glm::vec3(0.0f, 1.0f, 0.0f));
+        // board->deleteLines();
         respawnPiece();
-    }*/
+    }
     
 
 }
@@ -129,8 +124,8 @@ void Game::ProcessInput(float dt) {
 
 void Game::Render() {
     if (this->State == GAME_ACTIVE) {
-        // block->drawBlock(*sprite);
-        piece->drawPiece(piece->posMatrix, 0, *sprite, glm::vec3(1.0, 0.0, 0.0));
+        piece->drawPiece(piece->posMatrix, piece->type, *sprite, glm::vec3(1.0, 0.0, 0.0));
+        board->drawBoard(*sprite);
     }
 }
 
@@ -142,5 +137,13 @@ void Game::Reset() {
 void Game::respawnPiece() {
     int randType = (rand() % 7);
 
-    piece->drawPiece(piece->posMatrix, randType, *sprite, pieceColors[randType]);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            piece->posMatrix[i][j] = posMatrix[i][j];
+        }
+    }
+
+    piece->getPiece(randType);
+    piece->type = randType;
+    piece->rotation = 0;
 }

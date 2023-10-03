@@ -59,7 +59,7 @@ int main()
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
     float moveTime = 0.0f;
-    float moveInterval = 0.6f;
+    float moveInterval = 0.3f;
 
     // render loop
     // -----------

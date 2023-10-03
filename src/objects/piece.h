@@ -17,6 +17,8 @@ public:
 	glm::vec2 posMatrix[5][5];
 	glm::vec3 color;
 
+	int blockMatrix[5][5];
+
 	bool left;
 	bool right;
 	bool rotated;
@@ -36,6 +38,8 @@ public:
 	void moveDown();
 
 	void rotatePiece();
+
+	void getPiece(int type);
 
 	// int** getPiece(int type, int rotation);
 
